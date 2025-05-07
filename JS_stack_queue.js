@@ -126,6 +126,46 @@ function generateBinary(num){
     return result;
 }
 
+// Check Palindrome with Stack and Queue
+function isPalindrome(str) {
+    str = str.toLowerCase().replace(/[^a-z0-9]/g, "");
+    let s = new Stack();
+    let q = new Queue();
 
-const n = 5;
-console.log(generateBinary(5));
+    for (let char of str) {
+        s.push(char);
+        q.enqueue(char);
+    }
+
+    while (!s.isEmpty() && !q.isEmpty()){
+        if (s.pop() !== q.dequeue()) {
+            return false;}
+        }
+
+    return true;
+}
+
+// interleave the first half of a queue with a second half
+function interleaving(nums) {
+    let q1 = new Queue();
+    let q2 = new Queue();
+    let result = [];
+
+    for ( let i = 0 ; i < nums.length; i++ ) {
+        if (i < nums.length / 2 ) {
+            q1.enqueue(nums[i]);
+        } else {
+            q2.enqueue(nums[i]);
+        }
+    }
+
+    while (!q1.isEmpty() && !q2.isEmpty()) {
+        result.push(q1.dequeue());
+        result.push(q2.dequeue());
+    }
+
+    return result;
+}
+
+const nums = [1,2,3,4,5,6]
+console.log(interleaving(nums));
