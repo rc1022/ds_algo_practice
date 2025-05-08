@@ -167,5 +167,49 @@ function interleaving(nums) {
     return result;
 }
 
-const nums = [1,2,3,4,5,6]
-console.log(interleaving(nums));
+// Challenge 3: Implement a Queue Using Two Stacks
+class StackQueue{
+
+    constructor() {
+        this.inStack = new Stack();
+        this.outStack = new Stack();
+    }
+    
+    // inStack outStack
+    enqueue(val){
+        this.inStack.push(val);
+    }
+
+    dequeue(){
+        if (this.outStack.isEmpty()) {
+            while (!this.inStack.isEmpty()) {
+                this.outStack.push(this.inStack.pop());
+            }
+        }
+        
+        return this.outStack.pop();
+    }
+
+    display() {
+        const outItems = [... this.outStack.items].reverse();
+        const inItems = [... this.inStack.items];
+
+        const result = outItems.concat(inItems);
+
+        console.log(result);
+        
+    }
+
+
+}
+
+const sq = new StackQueue();
+sq.enqueue(1);
+sq.enqueue(4);
+sq.enqueue(2);
+sq.dequeue();
+sq.enqueue(5);
+sq.display();
+
+
+
